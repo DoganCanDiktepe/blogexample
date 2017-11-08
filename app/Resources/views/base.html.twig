@@ -1,0 +1,55 @@
+{% set _route = app.request.attributes.get('_route') %}
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+        <title>
+            {% block title %}
+                Test v3 
+            {% endblock %}
+        </title>
+        {% block stylesheets %}
+            {% stylesheets filter='scssphp' output="css/app.css"
+            'css/main.scss'
+            'css/noscript.scss'
+            %}
+              <link rel="stylesheet" href="{{ asset_url }}" />
+            {% endstylesheets %}
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body class="is-loading">        
+    
+        <div id="wrapper" class="fade-in">
+
+            <!-- Header & Nav Template -->
+            {% include 'inc/header.html.twig' %}
+
+            {% include 'inc/nav.html.twig' %}
+            
+            <div id="main">
+                {% block body %}
+
+                {% endblock %}
+            </div>
+
+           
+
+        </div>
+
+        
+        {% block javascripts %}
+            {% javascripts filter="?jsqueeze" output="js/app.js"
+                "js/jquery.min.js"
+                "js/jquery.scrollex.min.js"
+                "js/jquery.scrolly.min.js"
+                "js/skel.min.js"
+                "js/util.js"
+                "js/main.js"
+            %}
+            <script src="{{ asset_url }}" type="text/javascript"></script>
+            {% endjavascripts %}
+        {% endblock %}
+    </body>
+</html>

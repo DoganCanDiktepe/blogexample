@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <section class="posts">
+
+		{% for blog in blogList %}
+		<article>
+			<header>
+               	<span class="date">{{ blog.createdAt | date('M, d Y') }}</span>
+				<h2><a href="{{ url('blog_detail', {'id':  blog.id }) }}">{{ blog.title  }}</a></h2>
+			</header>
+			<a href="#" class="image fit"></a>
+			<p>{{ blog.shortDescription }}</p>
+			<ul class="actions">
+				<li><a href="{{ url('blog_detail', {'id':  blog.id }) }}" class="button">Detail</a></li>
+			</ul>
+		</article>
+		{% endfor %}
+
+	</section>
+{% endblock %}

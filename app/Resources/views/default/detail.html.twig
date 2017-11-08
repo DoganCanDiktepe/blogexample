@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    {{ dump(detail) }}
+
+    <section class="post">
+        <header class="major">
+            <span class="date">{{ detail.createdAt | date('M, d Y') }}</span>
+            <h1>{{ detail.title }}</h1>
+            <p>{{ detail.shortDescription }}</p>
+        </header>
+        <div class="image main"><img src="images/pic01.jpg" alt="" /></div>
+        <p>{{ detail.description|striptags('<br>')|raw }}</p>
+    </section>
+
+{% endblock %}
+
+{% block title %}
+    {{ detail.title }}
+{% endblock %}
+
