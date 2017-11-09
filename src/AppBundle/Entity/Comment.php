@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints\DateTime;
 
 /**
  * Comment
@@ -21,30 +22,45 @@ class Comment
      */
     private $id;
 	
-	
-	/**
-	 * @var integer
-	 *
-	 * @ORM\Column(name="blog_id", type="integer", nullable=false)
-	 */
-    private $blogId;
-
+    
     /**
      * @var string
      *
      * @ORM\Column(name="message", type="string", length=255)
      */
     private $message;
+	
+	
+	/**
+	 * var Blog
+	 *
+	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Blog", inversedBy="comments")
+	 * @ORM\JoinColumn(name="blog_id", referencedColumnName="id")
+	 */
+	
+	private $blog;
+	
+	/**
+	 * var User
+	 *
+	 * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User", inversedBy="comment")
+	 * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+	 */
+	
+	private $user;
+	
+	
+	/**
+	 * @ORM\Column(name="created_at", type="datetime", options={"default":0})
+	 */
+	private $createdAt;
 
-    /**
-     * @var integer
-     *
-     * @ORM\Column(name="user_id", type="integer")
-     */
-    private $userId;
-
-
-    /**
+	public function __construct()
+	{
+		$this->createdAt = new DateTime('now');
+	}
+	
+	/**
      * Get id
      *
      * @return int
@@ -80,52 +96,75 @@ class Comment
         return $this->message;
     }
 
-
     /**
-     * Set userId
+     * Set blog
      *
-     * @param integer $userId
+     * @param \AppBundle\Entity\Blog $blog
      *
      * @return Comment
      */
-    public function setUserId($userId)
+    public function setBlog(\AppBundle\Entity\Blog $blog)
     {
-        $this->userId = $userId;
+        $this->blog = $blog;
 
         return $this;
     }
 
     /**
-     * Get userId
+     * Get blog
      *
-     * @return integer
+     * @return \AppBundle\Entity\Blog
      */
-    public function getUserId()
+    public function getBlog()
     {
-        return $this->userId;
+        return $this->blog;
     }
 
     /**
-     * Set blogId
+     * Set user
      *
-     * @param integer $blogId
+     * @param \AppBundle\Entity\User $user
      *
      * @return Comment
      */
-    public function setBlogId($blogId)
+    public function setUser(\AppBundle\Entity\User $user = null)
     {
-        $this->blogId = $blogId;
+        $this->user = $user;
 
         return $this;
     }
 
     /**
-     * Get blogId
+     * Get user
      *
-     * @return integer
+     * @return \AppBundle\Entity\User
      */
-    public function getBlogId()
+    public function getUser()
     {
-        return $this->blogId;
+        return $this->user;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return Comment
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 }

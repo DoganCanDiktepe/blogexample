@@ -1,5 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    About
+    <section class="post">
+        <header class="major">
+            <h1>{{ about.title }}</h1>
+        </header>
+        <p>{{ about.description|striptags('<br>')|raw  }}</p>
+    </section>
+{% endblock %}
+
+{% block title %}
+    {{  parent() }} | {{ about.title }}
 {% endblock %}

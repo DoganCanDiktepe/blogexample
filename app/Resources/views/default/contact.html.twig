@@ -1,5 +1,37 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <section>
+
+        {% if not formResponse.error %}
+        <div class="alert alert-success">
+            <strong>{{ dump(formResponse.msg) }}</strong>
+        </div>
+        {% endif %}
+
+        {{form_start(form)}}
+            <div class="field">
+                {{ form_row(form.name, {
+                    'label': 'Name'
+                }) }}
+            </div>
+        <div class="field">
+            {{ form_row(form.email, {
+                'label': 'E-Mail'
+            }) }}
+        </div>
+        <div class="field">
+            {{ form_row(form.message, {
+                'label': 'Message'
+            }) }}
+        </div>
+            <ul class="actions">
+            <li><input type="submit" value="Send Message" /></li>
+            </ul>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}
+
+{% block title %}
     Contact
-tsy{% endblock %}
+{% endblock %}

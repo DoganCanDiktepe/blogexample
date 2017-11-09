@@ -13,8 +13,12 @@ class AboutController extends Controller
      */
     public function indexAction ()
     {
+    	
+    	$aboutRepository = $this->getDoctrine()->getRepository('AppBundle:About');
+    	$about = $aboutRepository->findAll();
+    	
         // replace this example code with whatever you need
-        return $this->render('default/about.html.twig', []);
+        return $this->render('default/about.html.twig', ['about'=>$about[0]]);
     }
 
 }

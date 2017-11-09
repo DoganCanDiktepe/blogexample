@@ -29,11 +29,6 @@ class User
      */
     private $name;
 	
-	/**
-	 * @ORM\ManyToMany(targetEntity="AppBundle\Entity\Blog", inversedBy="users")
-	 */
-    private $blogid;
-
     /**
      * @var string
      *
@@ -54,6 +49,25 @@ class User
      * @ORM\Column(name="status", type="integer")
      */
     private $status;
+	
+	
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="user")
+	 */
+	private $comment;
+	
+	
+	/**
+	 * @ORM\Column(name="created_at", type="datetime", options={"default":0})
+	 */
+	private $createdAt;
+	
+	/**
+	 * @var string
+	 * @ORM\Column(name="profil_picture", type="string", length=255, nullable=true)
+	 */
+	private $profilPicture;
 	
 	
     /**
@@ -161,47 +175,95 @@ class User
     {
         return $this->status;
     }
-
-    
+	
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->blogid = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comment = new \Doctrine\Common\Collections\ArrayCollection();
+	    $this->createdAt = new DateTime('now');
     }
 
     /**
-     * Add blogid
+     * Add comment
      *
-     * @param \AppBundle\Entity\Blog $blogid
+     * @param \AppBundle\Entity\Comment $comment
      *
      * @return User
      */
-    public function addBlogid(\AppBundle\Entity\Blog $blogid)
+    public function addComment(\AppBundle\Entity\Comment $comment)
     {
-        $this->blogid[] = $blogid;
+        $this->comment[] = $comment;
 
         return $this;
     }
 
     /**
-     * Remove blogid
+     * Remove comment
      *
-     * @param \AppBundle\Entity\Blog $blogid
+     * @param \AppBundle\Entity\Comment $comment
      */
-    public function removeBlogid(\AppBundle\Entity\Blog $blogid)
+    public function removeComment(\AppBundle\Entity\Comment $comment)
     {
-        $this->blogid->removeElement($blogid);
+        $this->comment->removeElement($comment);
     }
 
     /**
-     * Get blogid
+     * Get comment
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getBlogid()
+    public function getComment()
     {
-        return $this->blogid;
+        return $this->comment;
+    }
+
+    /**
+     * Set createdAt
+     *
+     * @param \DateTime $createdAt
+     *
+     * @return User
+     */
+    public function setCreatedAt($createdAt)
+    {
+        $this->createdAt = $createdAt;
+
+        return $this;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * Set profilPicture
+     *
+     * @param string $profilPicture
+     *
+     * @return User
+     */
+    public function setProfilPicture($profilPicture)
+    {
+        $this->profilPicture = $profilPicture;
+
+        return $this;
+    }
+
+    /**
+     * Get profilPicture
+     *
+     * @return string
+     */
+    public function getProfilPicture()
+    {
+        return $this->profilPicture;
     }
 }

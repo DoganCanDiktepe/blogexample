@@ -1,0 +1,99 @@
+<?php
+
+namespace AppBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Car
+ *
+ * @ORM\Table(name="car")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\CarRepository")
+ */
+class Car
+{
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
+
+    /**
+     * @var Model
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Model", inversedBy="cars")
+     */
+    private $model;
+
+    /**
+     * @var Make
+     *
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Make", inversedBy="cars")
+     */
+    private $make;
+
+
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+   
+   
+
+    /**
+     * Set model
+     *
+     * @param \AppBundle\Entity\Model $model
+     *
+     * @return Car
+     */
+    public function setModel(\AppBundle\Entity\Model $model = null)
+    {
+        $this->model = $model;
+
+        return $this;
+    }
+
+    /**
+     * Get model
+     *
+     * @return \AppBundle\Entity\Model
+     */
+    public function getModel()
+    {
+        return $this->model;
+    }
+
+    /**
+     * Set make
+     *
+     * @param \AppBundle\Entity\Make $make
+     *
+     * @return Car
+     */
+    public function setMake(\AppBundle\Entity\Make $make = null)
+    {
+        $this->make = $make;
+
+        return $this;
+    }
+
+    /**
+     * Get make
+     *
+     * @return \AppBundle\Entity\Make
+     */
+    public function getMake()
+    {
+        return $this->make;
+    }
+}

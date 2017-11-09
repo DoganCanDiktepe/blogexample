@@ -2,7 +2,6 @@
 
 namespace AppBundle\Entity;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -50,11 +49,13 @@ class Blog
      */
     private $shortDescription;
 	
-    /**
-     * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="blogid")
-     */
-    private $users;
-
+	
+	/**
+	 * @ORM\OneToMany(targetEntity="AppBundle\Entity\Comment", mappedBy="blog")
+	 */
+    private $comments;
+	
+    
     /**
      * Get id
      *
@@ -160,46 +161,46 @@ class Blog
     {
         return $this->shortDescription;
     }
-	
+   
     /**
      * Constructor
      */
     public function __construct()
     {
-        $this->users = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->comments = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
     /**
-     * Add user
+     * Add comment
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \AppBundle\Entity\Comment $comment
      *
      * @return Blog
      */
-    public function addUser(\AppBundle\Entity\User $user)
+    public function addComment(\AppBundle\Entity\Comment $comment)
     {
-        $this->users[] = $user;
+        $this->comments[] = $comment;
 
         return $this;
     }
 
     /**
-     * Remove user
+     * Remove comment
      *
-     * @param \AppBundle\Entity\User $user
+     * @param \AppBundle\Entity\Comment $comment
      */
-    public function removeUser(\AppBundle\Entity\User $user)
+    public function removeComment(\AppBundle\Entity\Comment $comment)
     {
-        $this->users->removeElement($user);
+        $this->comments->removeElement($comment);
     }
 
     /**
-     * Get users
+     * Get comments
      *
      * @return \Doctrine\Common\Collections\Collection
      */
-    public function getUsers()
+    public function getComments()
     {
-        return $this->users;
+        return $this->comments;
     }
 }

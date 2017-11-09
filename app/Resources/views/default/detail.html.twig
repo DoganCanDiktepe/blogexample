@@ -2,17 +2,37 @@
 
 {% block body %}
 
-    {{ dump(detail) }}
-
     <section class="post">
         <header class="major">
             <span class="date">{{ detail.createdAt | date('M, d Y') }}</span>
             <h1>{{ detail.title }}</h1>
             <p>{{ detail.shortDescription }}</p>
+
         </header>
         <div class="image main"><img src="images/pic01.jpg" alt="" /></div>
         <p>{{ detail.description|striptags('<br>')|raw }}</p>
     </section>
+
+    {%  for  comments in detail.comments %}
+    <div class="row">
+        <div class="col-sm-1">
+            <div class="thumbnail">
+                <img class="img-responsive user-photo" src="https://ssl.gstatic.com/accounts/ui/avatar_2x.png">
+            </div><!-- /thumbnail -->
+        </div><!-- /col-sm-1 -->
+
+        <div class="col-sm-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <strong>{{ comments.user.name ~ ' ' ~  comments.user.lastname }}</strong> <span class="text-muted">{{ comments.createdAt | date('M, d Y') }}</span>
+                </div>
+                <div class="panel-body">
+                    {{ comments.message }}
+                </div><!-- /panel-body -->
+            </div><!-- /panel panel-default -->
+        </div><!-- /col-sm-5 -->
+    </div>
+    {%   endfor %}
 
 {% endblock %}
 
